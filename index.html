@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    table, thead, tbody {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+    </style>    
+</head>
+<body>
+    <table border=“1”>
+        <thead>
+            <tr>
+                <th>Ngày</th>
+                <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="T7I-o1">
+                    <div id="T7I-o1-line1"></div>
+                    <div id="T7I-o1-line2"></div>
+                </td>
+                <td id="T7I-o2">
+                    <div id="T7I-o2-line1"></div>
+                    <div id="T7I-o2-line2"></div>
+                </td>
+                <td id="T7I-o3">
+                    <div id="T7I-o3-line1"></div>
+                    <div id="T7I-o3-line2"></div>
+                </td>
+            </tr>
+            <tr>
+                <td id="T7II-o1">
+                    <div id="T7II-o1-line1"></div>
+                    <div id="T7II-o1-line2"></div>
+                </td>
+                <td id="T7II-o2">
+                    <div id="T7II-o2-line1"></div>
+                    <div id="T7II-o2-line2"></div>
+                </td>
+                <td id="T7II-o3">
+                    <div id="T7II-o3-line1"></div>
+                    <div id="T7II-o3-line2"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        // 1. Get timestamp
+        const DIVISOR = 7*24*3600*1000;
+        const REMAINDER = 217800000; 
+        const now = new Date().valueOf();
+    
+        console.log(DIVISOR, REMAINDER, now);
+        const start1=Math.ceil ((now-REMAINDER)/DIVISOR)*DIVISOR+REMAINDER;
+        const end1=start1 + (3*3600*1000);
+        const start2=start1+DIVISOR;
+        const end2=start2+(3*3600*1000);
+        console.log (start1,end1,start2,end2);
+        // 2. Fill in
+        function formatDate(timestamp) {
+            const d=new Date(timestamp)
+            return d.toLocaleString("vi", 
+            {timezone: "Asia/Ho_Chi_Minh",
+             dateStyle:"short",
+             timeStyle:"long",
+        });
+        }
+        function formatDateOnly(timestamp) {
+            const d=new Date(timestamp)
+            return d.toLocaleDateString("vi", {timezone: "Asia/Ho_Chi_Minh", dateStyle:"short",});
+        }
+        function formatTimestamp(timestamp){
+            return "("+timestamp/1000+")";
+        }
+        document.getElementById("T7I-o1-line1").innerHTML = formatDateOnly(start1);
+        document.getElementById("T7I-o1-line2").innerHTML = "Thứ Bảy";
+        document.getElementById("T7I-o2-line1").innerHTML = formatDate(start1);
+        document.getElementById("T7I-o2-line2").innerHTML = formatTimestamp(start1);
+        document.getElementById("T7I-o3-line1").innerHTML = formatDate(end1);
+        document.getElementById("T7I-o3-line2").innerHTML = formatTimestamp(end1);
+
+        document.getElementById("T7II-o1-line1").innerHTML = formatDateOnly(start2);
+        document.getElementById("T7II-o1-line2").innerHTML = "Thứ Bảy";
+        document.getElementById("T7II-o2-line1").innerHTML = formatDate(start2);
+        document.getElementById("T7II-o2-line2").innerHTML = formatTimestamp(start2);
+        document.getElementById("T7II-o3-line1").innerHTML = formatDate(end2);
+        document.getElementById("T7II-o3-line2").innerHTML = formatTimestamp(end2);
+    </script>
+</body>
+</html>
